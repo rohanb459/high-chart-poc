@@ -36,7 +36,7 @@
     app.controller('pocController', function($scope){
         $scope.chartOptions = {
             title: {
-                text: 'Temperature data'
+                text: 'sales data'
             },
             xAxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
