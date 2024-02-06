@@ -1,45 +1,55 @@
-(function(){
+(function () {
     'use strict';
 
     const app = angular.module("pocApp", ["ngRoute"]);
 
     // Routing
-    app.config(function($routeProvider) {
-        $routeProvider
-        .when("/", {
-          template : "Series view here"
-        })
-        .when("/categories", {
-          template : "Categorize veiw here"
-        })
-        .otherwise({
-            template: "OOPS! Not Found."
-        })
-      });
+    // app.config(function($routeProvider) {
+    //     $routeProvider
+    //     .when("/", {
+    //       template : "Series view here"
+    //     })
+    //     .when("/categories", {
+    //       template : "Categorize veiw here"
+    //     })
+    //     .otherwise({
+    //         template: "OOPS! Not Found."
+    //     })
+    //   });
 
     // Directive Declaration
-    app.directive('hcChart', function(){
+    app.directive('hcChart', function () {
         return {
             restrict: 'E',
             template: '<div></div>',
             scope: {
-                options: '='
+                options: '=',
+                typeofchart: '=',
+                title: '@'
             },
-            link: function(scope,element){
-                Highcharts.chart(element[0], scope.options)
+            link: function (scope, element) {
+                console.log(scope.options);
+                console.log(scope.typeofchart);
+                Highcharts.chart(element[0],{
+                    chart:{type:scope.typeofchart},
+                    title:{
+                    text: scope.title
+                    },
+                    ...scope.options})
             }
         }
     })
 
 
     // Controller Declaration
-    app.controller('pocController', function($scope){
+    app.controller('pocController', function ($scope) {
+        $scope.lineChart="line",
+        $scope.columnChart= "column"
+        $scope.barChart = "bar"
+        $scope.areaChart="area"
         $scope.chartOptions = {
-            title: {
-                text: 'sales data'
-            },
             xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
             },
 
